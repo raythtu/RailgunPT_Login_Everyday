@@ -1,0 +1,44 @@
+# .github/workflows/pt-checkin.yml
+
+name: PT Site Check-in
+
+on:
+  schedule:
+    # 每天 UTC 时间 0 点运行（北京时间 8 点）
+    - cron: '0 0 * * *'
+  workflow_dispatch: # 允许手动触发
+
+jobs:
+  checkin:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 拉取代码
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 设置 Python 环境
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      # 安装依赖
+      - name: Install dependencies
+        run: |
+          pip install playwright ddddocr
+
+      # 安装 Playwright 浏览器
+      - name: Install Playwright browsers
+        run: |
+          playwright install chromium
+
+      # 运行签到脚本
+      - name: Run check-in script
+        env:
+          PTUSERNAME: ${{ secrets.PTUSERNAME }}
+          PTPASSWORD: ${{ secrets.PTPASSWORD }}
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
+        run: |
+          python main.py
