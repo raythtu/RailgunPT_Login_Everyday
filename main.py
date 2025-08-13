@@ -48,14 +48,16 @@ def myocr(img_path):
 
 def run(playwright: Playwright) -> None:
     browser = playwright.chromium.launch(
-        headless=False,
+        headless=True,
         slow_mo=1000
     )
     context = browser.new_context()
     page = context.new_page()
     page.goto("https://bilibili.download/login.php", timeout=0)
     page.locator("input[name=\"username\"]").fill(PTUSERNAME)
+    print("已输入用户名")
     page.locator("input[name=\"password\"]").fill(PTPASSWORD)
+    print("已输入密码")
     page.wait_for_timeout(3000)
     page.get_by_role("img", name="CAPTCHA").screenshot(path="captcha.png")
     ocr_res = myocr("captcha.png")
@@ -64,6 +66,7 @@ def run(playwright: Playwright) -> None:
     page.locator("input[name=\"imagestring\"]").fill(ocr_res)
     page.locator("input[name=\"logout\"]").check()
     page.get_by_role("button", name="登录").click()
+    print("已点击登录")
     page.goto("https://bilibili.download/index.php")
     page.wait_for_timeout(3000)
     #page.pause()
