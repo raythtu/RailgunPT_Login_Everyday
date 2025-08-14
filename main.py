@@ -71,7 +71,7 @@ def run(playwright: Playwright) -> None:
     page.wait_for_timeout(3000)
     #page.pause()
     page.goto("https://bilibili.download/attendance.php")
-    page.wait_for_timeout("3000")
+    page.wait_for_timeout(3000)
     #page.query_selector("签到已得")
     #print(page.get_by_text("签到已得"))
     #if page.get_by_text("签到已得").is_visible():
