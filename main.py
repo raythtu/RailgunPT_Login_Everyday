@@ -55,9 +55,9 @@ def run(playwright: Playwright) -> None:
     page = context.new_page()
     page.goto("https://audiences.me/login.php", timeout=0)
     page.locator("input[name=\"username\"]").fill(PTUSERNAME)
-    print("已输入用户名:%s",PTUSERNAME)
+    print("已输入用户名")
     page.locator("input[name=\"password\"]").fill(PTPASSWORD)
-    print("已输入密码:%s",PTPASSWORD)
+    print("已输入密码:%s")
     page.wait_for_timeout(3000)
     page.get_by_role("img", name="CAPTCHA").screenshot(path="captcha.png")
     ocr_res = myocr("captcha.png")
@@ -65,7 +65,7 @@ def run(playwright: Playwright) -> None:
     page.locator("input[name=\"imagestring\"]").screenshot(path="captcha.png")
     page.locator("input[name=\"imagestring\"]").fill(ocr_res)
     page.locator("input[name=\"logout\"]").check()
-    page.get_by_role("button", name="登录").click(    )
+    page.get_by_role("button", name="登录").click()
     print("已点击登录")
     page.goto("https://audiences.me/index.php")
     page.wait_for_timeout(3000)
@@ -77,12 +77,10 @@ def run(playwright: Playwright) -> None:
     if page.get_by_text("签到已得").is_visible():
         print("已签到")
         bot.send_message(CHAT_ID, "RailgunPT 今天已经签到过了～")
-
     else:
         print("未签到")
         page.get_by_role("link", name="[签到得魔力]").click()
         bot.send_message(CHAT_ID, "RailgunPT 已签到")
-
     page.screenshot(path="qmsg.png")
 
     with open("qmsg.png", "rb") as image_file:
