@@ -53,7 +53,7 @@ def run(playwright: Playwright) -> None:
     )
     context = browser.new_context()
     page = context.new_page()
-    page.goto("https://bilibili.download/login.php", timeout=0)
+    page.goto("https://audiences.me/attendance.php", timeout=0)
     page.locator("input[name=\"username\"]").fill(PTUSERNAME)
     print("已输入用户名")
     page.locator("input[name=\"password\"]").fill(PTPASSWORD)
