@@ -70,16 +70,18 @@ def run(playwright: Playwright) -> None:
     page.goto("https://bilibili.download/index.php")
     page.wait_for_timeout(3000)
     #page.pause()
+    page.goto("https://bilibili.download/attendance.php")
+    page.wait_for_timeout("3000")
     #page.query_selector("签到已得")
     #print(page.get_by_text("签到已得"))
-    if page.get_by_text("签到已得").is_visible():
-        print("已签到")
-        bot.send_message(CHAT_ID, "RailgunPT 今天已经签到过了～")
+    #if page.get_by_text("签到已得").is_visible():
+    #    print("已签到")
+    #    bot.send_message(CHAT_ID, "RailgunPT 今天已经签到过了～")
 
-    else:
-        print("未签到")
-        page.get_by_role("link", name="[签到得魔力]").click()
-        bot.send_message(CHAT_ID, "RailgunPT 已签到")
+    #else:
+    #    print("未签到")
+    #    page.get_by_role("link", name="[签到得魔力]").click()
+    #    bot.send_message(CHAT_ID, "RailgunPT 已签到")
 
     page.screenshot(path="qmsg.png")
 
