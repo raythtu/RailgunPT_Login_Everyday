@@ -26,7 +26,7 @@ jobs:
       # 安装依赖
       - name: Install dependencies
         run: |
-          sudo apt update && sudo apt install ttf-wqy-zenhei -y 
+          sudo apt-get update && sudo apt-get install -y ttf-wqy-zenhei 
           pip install -r requirements.txt
 
       # 安装 Playwright 浏览器
