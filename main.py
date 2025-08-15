@@ -19,8 +19,6 @@ PTPASSWORD = os.environ.get('PTPASSWORD')
 BOT_TOKEN = os.environ.get('BOT_TOKEN')
 CHAT_ID = os.environ.get('CHAT_ID')
 
-
-
 if not BOT_TOKEN:
     print("请设置环境变量 BOT_TOKEN")
     exit(1)
@@ -32,11 +30,8 @@ if not CHAT_ID:
 if not PTUSERNAME or not PTPASSWORD:
     print("请设置环境变量 PTUSERNAME 和 PTPASSWORD")
     exit(1)
-
-
-
+    
 bot = TgBotSender(BOT_TOKEN)
-
 
 def myocr(img_path):
     with open(img_path, 'rb') as f:
@@ -57,7 +52,7 @@ def run(playwright: Playwright) -> None:
     page.locator("input[name=\"username\"]").fill(PTUSERNAME)
     print("已输入用户名")
     page.locator("input[name=\"password\"]").fill(PTPASSWORD)
-    print("已输入密码:%s")
+    print("已输入密码")
     page.wait_for_timeout(3000)
     page.get_by_role("img", name="CAPTCHA").screenshot(path="captcha.png")
     ocr_res = myocr("captcha.png")
